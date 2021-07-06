@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online Jaguareté</title>
+
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+
+<body>
+
+    <header>
+        <div class="container-fluid">
+            <!-- Logo Nombre y Menu -->
+            <div class="nav rounded-top d-flex justify-content-around">
+                <!-- Nombre de usuario -->
+                <div class="d-flex">
+                    <div class="logo"></div>
+                    <div class="d-flex align-items-center"><h1>Jaguareté KAA</h1></div>
+                </div>
+                <!-- Menu de navegación -->
+                <nav class="row row-cols-auto d-flex flex-md-column">
+
+                    {% if user.is_authenticated %}
+
+                    <p>Estas conectado como: {{ user.get_username }}</p>
+                    {% if request.user.is_staff or es_usuario %}
+                        <a href="{% url 'apptienda:carrito' %}" class="nav-link d-flex align-items-center">
+                            Carrito
+                        </a>
+                    {% endif %}
+                    <a class="nav-link d-flex align-items-center"
+                        href="{% url 'logout'%}?next={{request.path}}">Salir</a>
+
+
+                    {% else %}
+                    <a class="nav-link d-flex align-items-center"
+                        href="{% url 'login'%}?next={{request.path}}">Acceder</a>
+                    <a href="{% url 'apptienda:registro' %}" class="nav-link d-flex align-items-center">Registro</a>
+                    {% endif %}
+
+
+                </nav>
+            </div>
+
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="{% url 'apptienda:index' %}">Inicio</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Categorías
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    {% for categoria in lista_categorias %}
+                                    <li><a class="dropdown-item"
+                                            href="{% url 'apptienda:filtro_categorias' categoria.id %}">{{categoria.descripcion}}</a>
+                                    </li>
+                                    {%endfor%}
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'apptienda:acerca' %}">Acerca de</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="mailto:contacto@jaguarete.com.ar">Contacto</a>
+                            </li>
+                            {% if request.user.is_staff or es_moderador %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'apptienda:producto_alta' %}">Agregar producto</a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                        <form class="d-flex" action="{% url 'apptienda:filtro_texto' %}" method="POST">
+                            {% csrf_token %}
+                            <input class="form-control me-sm-2" type="search" name="texto"
+                                placeholder="Ingrese el producto" aria-label="Search">
+                            <button class="btn btn-secondary my-2 my-sm-0">Buscar</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+
+
+    </header>
+
+    <main>
+
+        {% if messages %}
+        {% for mensaje in messages %}
+            <div class="alert alert-success container text-center" role="alert">{{ mensaje }}</div>
+        {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+        
+    </main>
+
+    <footer class="container footer d-flex flex-column flex-md-row justify-content-around align-items-center">
+        <div class="footer__empresa d-flex">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="30"
+                height="30" viewBox="0 0 24 24" stroke-width="1.5" stroke="#212121" fill="none" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <circle cx="12" cy="12" r="9" />
+                <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+            </svg>
+            <h2>JAGUARETE KAA S.A.</h2>
+        </div>
+        <div class="footer__dev text-center">
+            <h4>Diseñado por Diego Mendizábal</h3>
+        </div>
+
+    </footer>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

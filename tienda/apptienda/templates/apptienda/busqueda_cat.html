@@ -1,0 +1,22 @@
+{% extends "apptienda/layout.html" %}
+{% block content %}
+
+<div class="container">
+    <h2>Productos por categoría</h2>
+
+    <div class="alert alert-info" role="alert">{{ categoria_seleccionada }}</div>
+
+    <div class="list-group">
+        {% for un_producto in lista_productos %}
+
+                <a href="{% url 'apptienda:producto' un_producto.id %}" class="list-group-item list-group-item-action">{{un_producto.titulo}}</a>               
+
+        {% empty %}
+            <li>No hay productos en esta sección.</li>       
+        {% endfor %}
+    </div>
+
+    <a class="btn ptn-primary" href="{% url 'apptienda:index'%}">Volver</a>
+ 
+</div>
+{% endblock %}

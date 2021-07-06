@@ -1,0 +1,36 @@
+
+
+.nav {
+    margin: 30px 0 20px 0;
+    padding: 3px;
+}
+
+.logo {
+    height: 100px;
+    width: 150px;
+    background-size: 100% 100%;
+    background-image: url("/static/original.png");
+    
+}
+
+.imagen_acerca {
+    height: 150px;
+    width: 250px;
+    background-size: 100% 100%;
+    background-image: url("/static/original.png");
+}
+
+.cont-imagen {
+    height: 290px;
+} 
+
+#bloque_login{
+    display: block;
+    float: right;
+    font-size: 14px;
+    margin: 10px;
+}
+
+footer {
+    margin: 80px 0px;
+}

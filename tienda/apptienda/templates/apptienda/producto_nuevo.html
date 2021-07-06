@@ -1,0 +1,55 @@
+
+
+{% extends "apptienda/layout.html" %}
+{% block content %}
+
+
+<div class="container">
+    <h3 class="mt-5 text-center">Publicar un Producto</h3>
+
+   
+ 
+    <form class="mt-5 row" enctype="multipart/form-data" action="{% url 'apptienda:producto_alta' %}" method="post">
+        {% csrf_token %}
+        
+       
+        <div class="mb-3 col-lg-6">
+            <div class="mb-3 ">
+                <label for="titulo" class="form-label d-block">Título:</label> {{ form.titulo }} {{ form.titulo.errors }}
+            </div>
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha:</label> {{ form.fecha_publicacion }}
+            </div>
+            <label for="imagen" class="form-label d-block">Imagen:</label> {{ form.imagen }} {{ form.imagen.errors }}
+        </div>
+
+        <div class="col-lg-6">
+            <div class="mb-3">
+                <label for="categoria" class="form-label">Categoría:</label> {{ form.categoria }} {{ form.categoria.errors }}
+            </div>
+        
+        
+            <div class="mb-3 d-flex align-items-top">
+                <label for="descripcion" class="form-label d-block">Descripcion:</label> {{ form.descripcion }} {{ form.descripcion.errors }}
+            </div>
+        
+            <div class="mb-3">
+                <label for="precio" class="form-label d-block">Precio:</label> {{ form.precio }} {{ form.precio.errors }}
+            </div>
+        </div>
+        
+ 
+    
+    
+        <div class="col mt-5 d-flex justify-content-center">
+            <a class="btn btn-secondary" type="button" href="{% url 'apptienda:index'%}">Volver</a>
+            <input type="submit" class="btn btn-success" value="Publicar">
+        </div>
+    </form>
+
+    
+</div>
+
+
+
+{% endblock %}

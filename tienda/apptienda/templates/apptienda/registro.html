@@ -1,0 +1,32 @@
+{% extends "apptienda/layout.html" %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5 d-flex flex-column align-items-center">
+    <h2 class="mb-5">Registrarse en nuestra tienda</h2>
+    
+    <div class="formcontent">
+        
+        <form method="post">
+            {% csrf_token %}
+            {% for campo in form %}
+            <p>
+                {{ campo.label_tag }}<br>
+                {{ campo }}
+                {% if campo.help_text %}
+                <small style="color: grey">{{ campo.help_text }}</small>
+                {% endif %}
+                {% for error in campo.errors %}
+            <p style="color: red">{{ error }}</p>
+            {% endfor %}
+            </p>
+            {% endfor %}
+            <button type="submit">Confirmar Registro</button>
+        </form>
+    </div>
+
+</div>
+
+
+
+{% endblock %}

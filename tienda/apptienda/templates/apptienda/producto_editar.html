@@ -1,0 +1,82 @@
+{% extends "apptienda/layout.html" %}
+{% block content %}
+
+<div class="container">
+    <h3 class="mt-5 text-center">Editar un Producto</h3>
+    <form class="mt-5 row" enctype="multipart/form-data" action="{% url 'apptienda:producto_editar' producto.id %}" method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3 col-lg-6">
+            <div class="mb-3 ">
+                <label for="titulo" class="form-label d-block">Título:</label> {{ form.titulo }} 
+            </div>
+            <label for="imagen" class="form-label d-block">Imagen:</label> {{ form.imagen }}
+        </div>
+
+        <div class="col-lg-6">
+            <div class="mb-3">
+                <label for="categoria" class="form-label">Categoría:</label> {{ form.categoria }} {{ form.categoria.errors }}
+            </div>
+        
+            
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha:</label> {{ form.fecha_publicacion }}
+            </div>
+            
+        
+            <div class="mb-3 d-flex align-items-top">
+                <label for="descripcion" class="form-label d-block">Descripcion:</label> {{ form.descripcion }}
+            </div>
+        
+            <div class="mb-3">
+                <label for="precio" class="form-label d-block">Precio:</label> {{ form.precio }}
+            </div>
+        </div>
+        
+    
+    
+    
+        <div class="col mt-5 d-flex justify-content-center">
+            <a class="btn btn-secondary" type="button" href="{% url 'apptienda:index'%}">Volver</a>
+            <input type="submit" class="btn btn-success" value="Guardar cambios">
+        </div>
+    </form>
+</div>
+
+<!--
+<form enctype="multipart/form-data" action="{% url 'apptienda:producto_editar' producto.id %}" method="post">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label for="categoria" class="form-label">Categoría:</label> {{ form.categoria }} {{ form.categoria.errors }}
+    </div>
+
+    <div class="mb-3">
+        <label for="titulo" class="form-label">Título:</label> {{ form.titulo }}
+    </div>
+
+    <div class="mb-3">
+        <label for="fecha" class="form-label">Fecha:</label> {{ form.fecha_publicacion }}
+    </div>
+
+    <div class="mb-3">
+        <label for="imagen" class="form-label">Imagen:</label> {{ form.imagen }}
+    </div>
+
+    <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripcion:</label> {{ form.descripcion }}
+    </div>
+
+    <div class="mb-3">
+        <label for="precio" class="form-label">Precio:</label> {{ form.precio }}
+    </div>
+
+
+    <div class="col-auto">
+        <a class="btn btn-secondary" type="button" href="{% url 'apptienda:index'%}">Volver</a>
+        <input type="submit" class="btn btn-primary" value="Editar">
+    </div>
+</form>
+-->
+
+{% endblock %}

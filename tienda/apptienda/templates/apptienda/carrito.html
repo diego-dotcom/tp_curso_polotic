@@ -1,0 +1,66 @@
+{% extends "apptienda/layout.html" %}
+{% block content %}
+
+<div class="container mb-5 mt-5">
+
+    <h3 class="text-center">Carrito</h3>
+    <div class="table-responsive">
+        <table class="table mt-5 mb-3">
+            <thead>
+                <tr class="text-center">
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Agregar / Restar / Quitar</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if request.session.carro.items %}
+                    {% for key, value in request.session.carro.items %}
+
+                        <tr class="text-center">
+                            <td>{{value.titulo}}</td>
+                            <td>
+                                {{value.cantidad}}
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-success" href="{% url 'carro:agregar' value.producto_id %}">+</a>
+                                <a class="btn btn-sm btn-success" href="{% url 'carro:restar' value.producto_id %}">-</a>
+                                <a class="btn btn-sm btn-danger" href="{% url 'carro:eliminar' value.producto_id %}">x</a>
+                            </td>
+                            <td>$ {{ value.precio }}</td>
+
+                        </tr>
+
+
+                    {% endfor %}
+
+                {% else %}
+                    <tr>
+                        <td colspan="4">
+                            <div class="alert alert-danger text-center">Sin productos en el carrito</div>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-around mt-3 mb-5">
+        <div></div>
+
+        <h4>Total: $ {{importe_total_carro}}</h3>
+    </div>
+
+
+    <div class="d-flex justify-content-around">
+        <a class="btn btn-danger" href="{% url 'carro:limpiar' %}">Vaciar carrito</a>
+        <a class="btn btn-success" href="#">Finalizar compra</a>
+    </div>
+
+    
+
+</div>
+
+
+
+{% endblock %}

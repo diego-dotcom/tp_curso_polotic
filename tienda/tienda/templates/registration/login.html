@@ -1,0 +1,42 @@
+{% extends "registration/layout.html" %}
+
+{% block content %}
+
+<div class="container mt-5 d-flex flex-column align-items-center">
+    {% if form.errors %}
+    <p>El usuario y la clave no coinciden, por favor intente nuevamente.</p>
+    {% endif %}
+    <h3 class="mb-5">Acceder a la tienda</h3>
+    
+    <div id="formContent">
+    
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+    
+            <div class="mb-3 ">
+                <label for="titulo" class="form-label d-block">Usuario:</label> {{ form.username }} {{ form.username.errors }}
+            </div>
+    
+            <div class="mb-3 ">
+                <label for="titulo" class="form-label d-block">Contraseña:</label> {{ form.password }} {{ form.password.errors }}
+            </div>
+    
+    
+            <div>
+                <input type="submit" class="fadeIn fourth" value="INGRESAR" />
+                <input type="hidden" name="next" value="{{ next }}" />
+            </div>
+        </form>
+    
+        {# Asume que configuras la vista password_reset en tu URLconf #}
+    
+        <p><a href="{% url 'password_reset' %}">¿Olvidó su contraseña?</a></p>
+    
+    
+        
+    
+    </div>
+</div>
+
+
+{% endblock %}

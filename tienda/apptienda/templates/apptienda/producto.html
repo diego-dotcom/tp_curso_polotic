@@ -1,0 +1,36 @@
+{% extends "apptienda/layout.html" %}
+{% block content %}
+
+<div class="container">
+    <h2 class="mt-5 mb-3 text-center">{{ producto.titulo }}</h2>
+    <div class="row mt-5">
+        <div class="col-lg-6 d-flex align-items-center"> 
+            <img src="{{ media_url }}{{ producto.imagen.url }}" alt="{{ producto.titulo }}" class="border">
+        </div>
+        <div class="col-lg-1"></div>
+        <div class="col-lg-4">
+            <div class="alert alert-light" role="alert">{{producto.categoria}}</div>
+            <p class="ms-2" id="descripcion">{{ producto.descripcion }}</p>
+    
+            <div class="d-flex justify-content-around align-items-center mt-5"></div>
+                <h4>$ {{producto.precio}}</h4>
+            
+            {% if user.is_authenticated %}
+            
+                {% if user.is.staff or es_moderador %}
+                    <a class="btn btn-success btn-sm" href="{% url 'apptienda:producto_editar' producto.id %}">Editar Producto</a>
+                    <a class="btn btn-danger btn-sm" href="{% url 'apptienda:producto_eliminar' producto.id %}">Eliminar Producto</a>
+                {% endif %}
+                {% if not es_moderador %}
+                    <a class="btn btn-success btn-sm" href="{% url 'carro:agregar' producto.id %}">Agregar al carrito</a>
+                {% endif %}
+            {% endif %}
+            </div>
+        </div>
+        
+    </div>
+    
+</div>
+
+
+{% endblock %}
